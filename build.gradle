@@ -1,0 +1,57 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation group: 'io.vertx', name: 'vertx-web', version: '4.3.1'
+    implementation group: 'io.vertx', name: 'vertx-core', version: '4.3.1'
+    implementation group: 'io.temporal', name: 'temporal-sdk', version: '1.11.0'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.11'
+    implementation group: 'commons-configuration', name: 'commons-configuration', version: '1.10'
+
+    testImplementation group: 'io.temporal', name: 'temporal-testing', version: '1.11.0'
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.5.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task sayHello(type: JavaExec) {
+    /*main = */ 'helloworldapp.InitiateHelloWorld'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task startWorker(type: JavaExec) {
+    /*main = */ 'helloworldapp.HelloWorldWorker'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task startMonEx(type: JavaExec) {
+/*main = */ 'monex.IntiMonEx'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task startMonExWorker(type: JavaExec) {
+/*main = */ 'monex.WorkerIntializer'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task stopMonExWorker(type: JavaExec) {
+/*main = */ 'monex.WorkerUndeployment'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task runServer(type: JavaExec) {
+/*main = */ 'monex.AppIntializer'
+    classpath = sourceSets.main.runtimeClasspath
+}
